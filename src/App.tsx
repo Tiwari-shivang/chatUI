@@ -1,6 +1,6 @@
 function App() {
   return (
-    <section>
+    <section className="bg-component">
       asdsd
     </section>
   )
