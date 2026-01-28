@@ -3,44 +3,69 @@
 
 @layer base {
   :root {
-    --primary: 190 100% 50%;
-    --primary-foreground: 222 47% 6%;
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
 
-    --secondary: 270 80% 60%;
-    --secondary-foreground: 210 40% 98%;
+    --primary: 190 100% 45%;
+    --primary-foreground: 0 0% 100%;
 
-    --background: 222 47% 6%;
-    --foreground: 210 40% 98%;
+    --secondary: 270 80% 55%;
+    --secondary-foreground: 0 0% 100%;
 
-    --input: 222 30% 12%;
+    --component: 0 0% 98%;
+    --component-foreground: 222 47% 11%;
 
-    --border: 231 20% 20%;
+    --input: 0 0% 96%;
+    --border: 214 32% 91%;
 
-    --muted: 222 30% 15%;
-    --muted-foreground: 215 20% 55%;
+    --muted: 210 20% 94%;
+    --muted-foreground: 215 20% 40%;
 
-    --accent: 222 30% 12%;
-    --accent-foreground: 210 40% 98%;
-
-    --component: 222 47% 8%;
-    --component-foreground: 210 40% 98%;
+    --accent: 210 20% 96%;
+    --accent-foreground: 222 47% 11%;
 
     --radius: 0.75rem;
 
     --font-body: 'Inter', sans-serif;
     --font-heading: 'Space Grotesk', sans-serif;
 
-    --gradient-primary: linear-gradient(135deg, hsl(190, 100%, 50%) 0%, hsl(270, 80%, 60%) 100%);
+    --gradient-primary: linear-gradient(
+      135deg,
+      hsl(190 100% 45%) 0%,
+      hsl(270 80% 55%) 100%
+    );
   }
-
   .dark {
-    --background: 0 0% 100%;
-    --foreground: 222 47% 11%;
+    --background: 222 47% 6%;
+    --foreground: 210 40% 98%;
 
-    --primary: 222 100% 45%;
-    --secondary: 271 80% 55%;
+    --primary: 190 100% 50%;
+    --primary-foreground: 222 47% 6%;
+
+    --secondary: 270 80% 60%;
+    --secondary-foreground: 210 40% 98%;
+
+    --component: 222 47% 8%;
+    --component-foreground: 210 40% 98%;
+
+    --input: 222 30% 12%;
+    --border: 222 30% 18%;
+
+    --muted: 222 30% 15%;
+    --muted-foreground: 215 20% 60%;
+
+    --accent: 222 30% 12%;
+    --accent-foreground: 210 40% 98%;
+
+    --gradient-primary: linear-gradient(
+      135deg,
+      hsl(190 100% 50%) 0%,
+      hsl(270 80% 60%) 100%
+    );
   }
+
 }
+
 
 @layer components {
   .custom-grid {

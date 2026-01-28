@@ -4,6 +4,17 @@ import { useState } from "react";
 
 export const Login: React.FC = () => {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+    const [isDark, setIsDark] = useState(true);
+    const handleTheme = () => {
+        console.log("jj")
+        if(isDark){
+            document.documentElement.classList.remove("dark");
+            setIsDark(false);
+            return;
+        }
+        document.documentElement.classList.add("dark");
+        setIsDark(true);
+    }
     return (
         <section className="template flex justify-center items-center">
             <div className="custom-grid gap-vertical max-w-[95%]">
@@ -45,7 +56,7 @@ export const Login: React.FC = () => {
                             </span>
                         </div>
                     </div>
-                    <button className="btn-sso mt-10">
+                    <button type="button" className="btn-sso mt-10" onClick={() => handleTheme()}>
                         <svg className="w-5 h-5" viewBox="0 0 24 24">
                             <path
                                 fill="#4285F4"
