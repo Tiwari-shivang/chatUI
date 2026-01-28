@@ -81,6 +81,12 @@
     color: var(--background);
   }
 
+  .btn-secondary{
+    background: var(--accent);
+    color: var(--accent-foreground);
+    border: 1px solid var(--border);
+  }
+
   .gradient-text {
     @apply bg-clip-text text-transparent;
     background-image: var(--gradient-primary);
@@ -107,6 +113,9 @@
   .animation-pulse {
     animation: pulse-slow 4s ease-in-out infinite;
   }
+  .animation-fade {
+    animation: fade-in 1s ease-in;
+  }
 }
 
 @keyframes pulse-slow {
@@ -118,5 +127,17 @@
 
   50% {
     opacity: 0.8;
+  }
+}
+
+@keyframes fade-in {
+  0%{
+    opacity: 0;
+  }
+  50%{
+    opacity: 0.5;
+  }
+  100%{
+    opacity: 1;
   }
 }
