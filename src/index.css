@@ -1,31 +1,97 @@
 @import "tailwindcss";
 @config "../tailwind.config.js";
 
-:root{
-  --primary: 422 20% 10%;
-  --primary-foreground: 422 20% 20%;
+@layer base {
+  :root {
+    --primary: 190 100% 50%;
+    --primary-foreground: 222 47% 6%;
 
-  --secondary: 422 20% 20%;
-  --secondary-foreground: 422 20% 20%;
+    --secondary: 270 80% 60%;
+    --secondary-foreground: 210 40% 98%;
 
-  --background: 244 20% 20%;
-  --foreground: 234 10% 10%;
+    --background: 222 47% 6%;
+    --foreground: 210 40% 98%;
 
-  --border: 231 20% 20%;
+    --input: 222 30% 12%;
 
-  --muted: 213 20% 10%;
-  --muted-foreground: 123 10% 10%;
+    --border: 231 20% 20%;
 
-  --component: 123 98% 10%;
-  --component-foreground: 321 90% 98%;
+    --muted: 222 30% 15%;
+    --muted-foreground: 215 20% 55%;
 
-  --radius: 0.75rem;
+    --accent: 222 30% 12%;
+    --accent-foreground: 210 40% 98%;
 
-  --font-body: "Sans";
-  --font-heading: "Sans"
+    --component: 222 47% 8%;
+    --component-foreground: 210 40% 98%;
+
+    --radius: 0.75rem;
+
+    --font-body: 'Inter', sans-serif;
+    --font-heading: 'Space Grotesk', sans-serif;
+
+    --gradient-primary: linear-gradient(135deg, hsl(190, 100%, 50%) 0%, hsl(270, 80%, 60%) 100%);
+  }
+
+  .dark {
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+
+    --primary: 222 100% 45%;
+    --secondary: 271 80% 55%;
+  }
 }
 
-.dark{
-  --background: 123 20% 20%;
-  --foreground: 243 10% 10%;
+@layer components {
+  .custom-grid {
+    @apply grid grid-cols-12
+  }
+
+  .template {
+    @apply h-full w-full
+  }
+
+  .btn-primary {
+    background: var(--gradient-primary);
+    color: var(--background);
+  }
+
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-primary);
+  }
+
+  .input-auth {
+    @apply bg-input rounded-xl border-border w-full focus:outline-none py-3 px-4 focus:ring-2 focus:ring-primary/50 transition-all duration-300 text-foreground
+  }
+
+  .lable-auth {
+    @apply text-mutedForeground text-sm font-medium
+  }
+
+  .gap-vertical {
+    @apply gap-10
+  }
+
+  .btn-sso {
+    @apply bg-component border border-mutedForeground py-3 w-full gap-3 rounded-xl text-foreground flex items-center justify-center
+  }
+}
+
+@layer utilities {
+  .animation-pulse {
+    animation: pulse-slow 4s ease-in-out infinite;
+  }
+}
+
+@keyframes pulse-slow {
+
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
 }

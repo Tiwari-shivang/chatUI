@@ -12,13 +12,21 @@ export default {
                 background: "hsl(var(--background))",
                 foreground: "hsl(var(--foreground))",
 
+                input: "hsl(var(--input))",
+
                 muted: "hsl(var(--muted))",
                 mutedForeground: "hsl(var(--muted-foreground))",
+
+                accent: "hsl(var(--accent))",
+                accentForeground: "hsl(var(--accent-foreground))",
 
                 component: "hsl(var(--component))",
                 componentForeground: "hsl(var(--component-foreground))",
 
-                border: "hsl(var(--border))"
+                border: "hsl(var(--border))",
+        
+
+                gradientPrimary: "hsl(var(--gradient-primary))"
             },
             borderRadius: {
                 radius: "var(--radius)"
