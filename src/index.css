@@ -107,6 +107,9 @@
   .btn-sso {
     @apply bg-component border border-mutedForeground py-3 w-full gap-3 rounded-xl text-foreground flex items-center justify-center
   }
+  .centered-data{
+    @apply flex justify-center items-center
+  }
 }
 
 @layer utilities {

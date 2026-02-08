@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react"
-import { SignUp } from "./pages/SignupPage"
 import { MoonStar, Sun } from "lucide-react";
+import { RouterFlow } from "./routes/RouterFlow";
 
 function App() {
   const [themeSection, setThemeSection] = useState(false);
   const [isDark, setIsDark] = useState(false);
   const themeTogglerStyle = "custom-grid min-w-30 absolute right-2 top-4 shadow-xl border border-border py-3 rounded-3xl"
   useEffect(() => {
-    const handleThemeSection = (event) => {
+    const handleThemeSection = (event: any) => {
       const threshHoldVal = 10;
       if(window.innerWidth - event.clientX <= threshHoldVal){
         setThemeSection(true);
@@ -41,7 +41,7 @@ function App() {
           <MoonStar className={isDark ? 'text-primary' : 'text-mutedForeground'} />
         </div>
       </section>
-      <SignUp/>
+      <RouterFlow/>
     </section>
   )
 }
