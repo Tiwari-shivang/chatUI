@@ -1,6 +1,7 @@
 import { Search } from "lucide-react"
 import type React from "react"
 import { chatList } from "../mocks/mocks"
+import { useState } from "react"
 
 export type propsConnectionTab = {
     name: string,
@@ -10,8 +11,10 @@ export type propsConnectionTab = {
     isUnread: boolean,
     totalUnread: number,
     lastMessageTime: string,
-    profileBgColor: string
+    profileBgColor: string,
+    index: number
 }
+
 
 const ConnectionTab: React.FC<propsConnectionTab> = ({
     name,
@@ -21,9 +24,10 @@ const ConnectionTab: React.FC<propsConnectionTab> = ({
     isUnread,
     totalUnread,
     lastMessageTime,
-    profileBgColor
+    profileBgColor,
+    index
 }) => {
-
+    const [selectedChat, setSelectedChat] = useState<number | null>(null);
     const handleLastMessageTime = (dateString: string) => {
         const now = new Date()
         const past = new Date(dateString)
@@ -40,8 +44,11 @@ const ConnectionTab: React.FC<propsConnectionTab> = ({
         const diffDay = Math.floor(diffHr / 24)
         return `${diffDay}d`
     }
+    const tablStyle = "custom-grid h-[80px] rounded-radius mb-2 cursor-pointer transition-all duration-200"
     return (
-        <div className="custom-grid h-[80px] border border-border rounded-radius mb-2 cursor-pointer">
+        <div className={selectedChat === index ? `${tablStyle} border border-primary/20 bg-primary/10` : `${tablStyle} border border-border hover:bg-accent/50`}
+        onClick={() => setSelectedChat(index)}
+        >
             <div className="col-span-3 centered-data">
                 <span className="rounded-full h-15 w-15 centered-data font-medium text-foreground border border-border" style={{background: profileBgColor}}>
                     {imgURL.length ? <img src={imgURL} className="rounded-full h-15 w-15" /> : <>{initials}</>}
@@ -68,7 +75,7 @@ export const ChatList: React.FC = () => {
             </div>
             <div style={{ height: 'calc(100vh - 80px)', overflowY: 'scroll' }} className="px-3 py-2">
                 {chatList.map((chat, index) => (
-                    <ConnectionTab key={index} name={chat.name} initials={chat.initials} imgURL={chat.imgURL} lastMessage={chat.lastMessage} isUnread={chat.isUnread} totalUnread={chat.totalUnread} lastMessageTime={chat.lastMessageTime} profileBgColor={chat.profileBgColor} />
+                    <ConnectionTab key={index} name={chat.name} initials={chat.initials} imgURL={chat.imgURL} lastMessage={chat.lastMessage} isUnread={chat.isUnread} totalUnread={chat.totalUnread} lastMessageTime={chat.lastMessageTime} profileBgColor={chat.profileBgColor} index={index} />
                 ))}
             </div>
         </section>
