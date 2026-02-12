@@ -66,6 +66,10 @@
 
 }
 
+body{
+  background-color: hsl(var(--background));
+}
+
 
 @layer components {
   .custom-grid {
@@ -78,13 +82,18 @@
 
   .btn-primary {
     background: var(--gradient-primary);
-    color: var(--background);
+    color: hsl(var(--background));
+    cursor: pointer;
+  }
+
+  .btn-disabled {
+    @apply text-mutedForeground border border-border rounded-radius
   }
 
   .btn-secondary{
-    background: var(--accent);
-    color: var(--accent-foreground);
-    border: 1px solid var(--border);
+    background: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
+    border: 1px solid hsl(var(--border));
   }
 
   .gradient-text {

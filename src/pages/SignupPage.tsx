@@ -8,27 +8,27 @@ const Page0: React.FC = () => {
         <form>
             <div className="custom-grid gap-3">
                 <div className="col-span-6">
-                    <label className="label-auth">First name</label>
+                    <label className="lable-auth">First name</label>
                     <div className="relative py-2">
                         <User className="absolute top-1/2 -translate-y-1/2 left-4 text-mutedForeground" />
                         <input placeholder="Shivang" name="firstName" className="input-auth pl-12" />
                     </div>
                 </div>
                 <div className="col-span-6">
-                    <label className="label-auth">Last name</label>
+                    <label className="lable-auth">Last name</label>
                     <div className="relative py-2">
                         <input placeholder="Tiwari" name="lastName" className="input-auth" />
                     </div>
                 </div>
                 <div className="col-span-12">
-                    <label className="label-auth">Username</label>
+                    <label className="lable-auth">Username</label>
                     <div className="relative py-2">
                         <span className="absolute text-[20px] top-1/2 -translate-y-1/2 left-4 text-mutedForeground">@</span>
-                        <input className="input-auth pl-10" placeholder="shivang424" />
+                        <input name="userName" className="input-auth pl-10" placeholder="shivang424" />
                     </div>
                 </div>
                 <div className="col-span-12">
-                    <button className="btn-primary py-3 rounded-xl w-full font-medium">Continue</button>
+                    <button type="submit" className="btn-primary py-3 rounded-xl w-full font-medium">Continue</button>
                 </div>
                 <div className="col-span-12 mt-5 text-mutedForeground">
                     <div className="relative">
@@ -87,60 +87,60 @@ const Page1: React.FC = () => {
         <form>
             <div className="custom-grid gap-3">
                 <div className="col-span-12">
-                    <label className="label-auth">Email</label>
+                    <label className="lable-auth">Email</label>
                     <div className="relative py-2">
                         <Mail className="absolute top-1/2 -translate-y-1/2 left-4 text-mutedForeground" />
                         <input placeholder="Shivang" name="firstName" className="input-auth pl-12" />
                     </div>
                 </div>
                 <div className="col-span-12">
-                    <label className="label-auth">Password</label>
+                    <label className="lable-auth">Password</label>
                     <div className="relative py-2">
                         <Lock className="absolute top-1/2 -translate-y-1/2 left-4 text-mutedForeground" />
                         <input placeholder="Enter password" name="lastName" className="input-auth pl-12" />
                     </div>
                 </div>
                 <div className="col-span-12">
-                    <label className="label-auth">Confirm password</label>
+                    <label className="lable-auth">Confirm password</label>
                     <div className="relative py-2">
                         <Lock className="absolute top-1/2 -translate-y-1/2 left-4 text-mutedForeground" />
                         <input placeholder="Enter password" name="lastName" className="input-auth pl-12" />
                     </div>
                 </div>
                 <div className="col-span-6">
-                    <label className="label-auth">Gender</label>
+                    <label className="lable-auth">Gender</label>
                     <div className="relative py-2">
                         <Users className="absolute top-1/2 -translate-y-1/2 left-4 text-mutedForeground" />
                         <input placeholder="Shivang" name="firstName" className="input-auth pl-12" />
                     </div>
                 </div>
                 <div className="col-span-6">
-                    <label className="label-auth">Date of birth</label>
+                    <label className="lable-auth">Date of birth</label>
                     <div className="relative py-2">
                         <Calendar className="absolute top-1/2 -translate-y-1/2 left-4 text-mutedForeground" />
                         <input placeholder="Shivang" name="firstName" className="input-auth pl-12" />
                     </div>
                 </div>
                 <div className="col-span-6">
-                    <button className="btn-secondary py-3 rounded-xl w-full font-medium">Back</button>
+                    <button type="button" className="btn-secondary py-3 rounded-xl w-full font-medium">Back</button>
                 </div>
                 <div className="col-span-6">
-                    <button className="btn-primary py-3 rounded-xl w-full font-medium">Create Account</button>
+                    <button type="button" className="btn-primary py-3 rounded-xl w-full font-medium">Create Account</button>
                 </div>
             </div>
         </form>
     )
 }
 
-export const SignUp: React.FC = () => {
+const SignUp: React.FC = () => {
     const [pageNo, setPageNo] = useState(0);
     const [formValues, setFormValues] = useState(null);
     return (
         <div className="custom-grid template">
-            <div className="col-span-6">
+            <div className="col-span-0 md:col-span-6 hidden md:block">
                 <AuthLeftSection />
             </div>
-            <div className="col-span-6 flex items-center justify-center">
+            <div className="col-span-12 p-4 md:col-span-6 flex items-center justify-center">
                 <div className="custom-grid gap-vertical min-w-[70%]">
                     <div className="col-span-12 text-mutedForeground text-center">
                         <h2 className="text-3xl text-foreground font-medium">Create your account</h2>
@@ -165,3 +165,5 @@ export const SignUp: React.FC = () => {
         </div>
     )
 }
+
+export default SignUp;

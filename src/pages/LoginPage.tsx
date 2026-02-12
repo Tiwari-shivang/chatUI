@@ -2,9 +2,30 @@ import type React from "react";
 import { AuthLeftSection } from "../components/AuthLeftSection";
 import { Eye, EyeOff, Mail, Lock } from "lucide-react";
 import { useState } from "react";
+import { loginThunk } from "../store/authThunks";
+import {useDispatch} from 'react-redux'
+import type { appAction } from "../store/store";
+import { useNavigate } from "react-router-dom";
 
-export const LoginPage: React.FC = () => {
+const LoginPage: React.FC = () => {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+
+    const dispatcher = useDispatch<appAction>();
+    const navigate = useNavigate();
+
+    const handleLogin = () => {
+        dispatcher(loginThunk({
+            email: email,
+            password: password
+        })).then(() => {
+            navigate("/verify-email")
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
+
     return (
         <div className="custom-grid template">
             <div className="col-span-6">
@@ -18,16 +39,27 @@ export const LoginPage: React.FC = () => {
                             <label className="text-mutedForeground"> Sign in to continue your conversations </label>
                         </div>
                         <div className="col-span-12">
-                            <form>
+                            <form onSubmit={(e) => { e.preventDefault(); handleLogin(); }}>
                                 <label htmlFor="email" className="lable-auth"> Email address </label>
                                 <div className="relative mb-4 py-2">
                                     <Mail className="absolute text-mutedForeground top-1/2 left-4 -translate-y-1/2 w-5 h-5" />
-                                    <input name="email" className="input-auth pl-12" placeholder="you@example.com" />
+                                    <input className="input-auth pl-12"
+                                        name="email"
+                                        placeholder="you@example.com"
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        value={email}
+                                    />
                                 </div>
                                 <label htmlFor="email" className="lable-auth mb-2"> Password </label>
                                 <div className="relative py-2">
                                     <Lock className="text-mutedForeground w-5 h-5 -translate-y-1/2 absolute top-1/2 left-4" />
-                                    <input className="input-auth pl-12 pr-12" type={isPasswordVisible ? "text" : "password"} placeholder="Password" />
+                                    <input className="input-auth pl-12 pr-12"
+                                        name="password"
+                                        type={isPasswordVisible ? "text" : "password"}
+                                        placeholder="Password"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                    />
                                     {isPasswordVisible ?
                                         <button type="button" onClick={() => { setIsPasswordVisible(false) }}><EyeOff className="absolute right-4 top-1/2 -translate-y-1/2 text-mutedForeground w-5 h-5 cursor-pointer" /></button> :
                                         <button type="button" onClick={() => { setIsPasswordVisible(true) }}><Eye className="absolute right-4 top-1/2 -translate-y-1/2 text-mutedForeground w-5 h-5 cursor-pointer" /></button>
@@ -87,3 +119,5 @@ export const LoginPage: React.FC = () => {
         </div>
     )
 }
+
+export default LoginPage;

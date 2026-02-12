@@ -3,7 +3,7 @@ import { Sidebar } from "../components/Sidebar";
 import { ChatList } from "../components/ChatList";
 import { ChatWindow } from "../components/ChatWindow";
 
-export const Dashboard: React.FC = () => {
+const Dashboard: React.FC = () => {
     return (
         <div>
             <Sidebar />
@@ -27,3 +27,5 @@ export const Dashboard: React.FC = () => {
         </div>
     )
 }
+
+export default Dashboard;

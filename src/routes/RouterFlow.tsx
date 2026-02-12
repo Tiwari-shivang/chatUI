@@ -1,14 +1,19 @@
-import type React from "react";
+import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { LoginPage } from "../pages/LoginPage";
-import { Dashboard } from "../pages/Dashboard";
+
+const LoginPage = React.lazy(() => import('../pages/LoginPage'));
+const SignupPage = React.lazy(() => import('../pages/SignupPage'));
+const VerifyPage = React.lazy(() => import('../pages/VerifyEmail'));
+const Dashboard = React.lazy(() => import('../pages/Dashboard'));
+
 
 export const RouterFlow: React.FC = () => {
     return (
         <BrowserRouter>
             <Routes>
                 <Route path="/login" element={<LoginPage/>} />
-                <Route path="/signup" element={<LoginPage/>} />
+                <Route path="/signup" element={<SignupPage/>} />
+                <Route path="/verify-email" element={<VerifyPage/>} />
                 <Route path="/" element={<Dashboard/>} />
             </Routes>
         </BrowserRouter>
