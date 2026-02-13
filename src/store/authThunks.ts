@@ -13,7 +13,7 @@ export type signupRequest = {
     email: string,
     password: string,
     role: 'user' | 'admin',
-    gender: 'male' | 'female' | 'others',
+    gender: string,
     dob: string
 }
 
@@ -22,6 +22,11 @@ export type successResponse = {
 }
 
 export const loginThunk = createAsyncThunk<successResponse, loginRequest>("/auth/loginUser", async (request) => {
-    const loginResponse = await api.post("auth/login", request);
+    const loginResponse = await api.post<successResponse>("auth/login", request);
     return loginResponse.data;
+});
+
+export const signupThunk = createAsyncThunk<successResponse, signupRequest>("auth/signupResponse", async (request) => {
+    const response = await api.post<successResponse>("/auth/signup", request);
+    return response.data;
 })

@@ -2,29 +2,79 @@ import type React from "react";
 import { AuthLeftSection } from "../components/AuthLeftSection";
 import { useState } from "react";
 import { Eye, EyeOff, Mail, Lock, User, Calendar, Users } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import type { appAction, appState } from "../store/store";
+import { setPage0Vals, setPage1Vals } from "../store/authSlice";
+import { VALIDATIONS } from "../config/validations";
+import { signupThunk } from "../store/authThunks";
+import { Link, useNavigate } from "react-router-dom";
+import { FullScreenLoader } from "../components/FullScreenLoader";
+import { setLoader } from "../store/helperSlice";
 
-const Page0: React.FC = () => {
+type pagePropCallback = {
+    handleContinue: (pageNo: number) => void
+}
+
+const Page0: React.FC<pagePropCallback> = ({ handleContinue }) => {
+
+    const dispather = useDispatch<appAction>();
+    const pageValues = useSelector((state: appState) => state.auth.page0);
+
+    const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        handleContinue(1);
+    }
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        dispather(setPage0Vals({
+            ...pageValues,
+            [name]: value
+        }))
+    }
+
     return (
-        <form>
+        <form onSubmit={handleFormSubmit}>
             <div className="custom-grid gap-3">
                 <div className="col-span-6">
                     <label className="lable-auth">First name</label>
                     <div className="relative py-2">
                         <User className="absolute top-1/2 -translate-y-1/2 left-4 text-mutedForeground" />
-                        <input placeholder="Shivang" name="firstName" className="input-auth pl-12" />
+                        <input
+                            pattern={VALIDATIONS.name.source}
+                            required
+                            placeholder="Shivang"
+                            name="firstName"
+                            className="input-auth pl-12"
+                            value={pageValues.firstName}
+                            onChange={handleInputChange} />
                     </div>
                 </div>
                 <div className="col-span-6">
                     <label className="lable-auth">Last name</label>
                     <div className="relative py-2">
-                        <input placeholder="Tiwari" name="lastName" className="input-auth" />
+                        <input
+                            pattern={VALIDATIONS.name.source}
+                            required
+                            placeholder="Tiwari"
+                            name="lastName"
+                            className="input-auth"
+                            value={pageValues.lastName}
+                            onChange={handleInputChange} />
                     </div>
                 </div>
                 <div className="col-span-12">
                     <label className="lable-auth">Username</label>
                     <div className="relative py-2">
                         <span className="absolute text-[20px] top-1/2 -translate-y-1/2 left-4 text-mutedForeground">@</span>
-                        <input name="userName" className="input-auth pl-10" placeholder="shivang424" />
+                        <input
+                            pattern={VALIDATIONS.userName.source}
+                            required
+                            name="userName"
+                            className="input-auth pl-10"
+                            placeholder="shivang424"
+                            value={pageValues.userName}
+                            onChange={handleInputChange} />
                     </div>
                 </div>
                 <div className="col-span-12">
@@ -66,14 +116,16 @@ const Page0: React.FC = () => {
                 <div className="col-span-12 text-center">
                     <label className="text-mutedForeground ">
                         Already have an account?
-                        <span className="text-primary">{` Sign in`}</span>
+                        <Link to="/login">
+                            <span className="text-primary">{` Sign in`}</span>
+                        </Link>
                     </label>
                 </div>
                 <div className="col-span-12 text-center">
                     <label className="text-mutedForeground text-sm">
                         By signing up, you agree to our
                         <span className="text-primary">{` Terms of services `}</span>
-                        and 
+                        and
                         <span className="text-primary">{` privacy policy.`}</span>
                     </label>
                 </div>
@@ -82,50 +134,113 @@ const Page0: React.FC = () => {
     )
 }
 
-const Page1: React.FC = () => {
+const Page1: React.FC<pagePropCallback> = ({ handleContinue }) => {
+    const pageValues = useSelector((state: appState) => state.auth.page1);
+    const dispatcher = useDispatch<appAction>();
+    const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        handleContinue(2);
+    }
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        const { name, value } = e.target;
+        dispatcher(setPage1Vals({
+            ...pageValues,
+            [name]: value
+        }))
+    }
+
     return (
-        <form>
+        <form onSubmit={handleFormSubmit}>
             <div className="custom-grid gap-3">
                 <div className="col-span-12">
                     <label className="lable-auth">Email</label>
                     <div className="relative py-2">
                         <Mail className="absolute top-1/2 -translate-y-1/2 left-4 text-mutedForeground" />
-                        <input placeholder="Shivang" name="firstName" className="input-auth pl-12" />
+                        <input
+                            placeholder="shivang@xyz.com"
+                            name="email"
+                            className="input-auth pl-12"
+                            value={pageValues.email}
+                            required
+                            pattern={VALIDATIONS.email.source}
+                            onChange={handleInputChange}
+                        />
                     </div>
                 </div>
                 <div className="col-span-12">
                     <label className="lable-auth">Password</label>
                     <div className="relative py-2">
                         <Lock className="absolute top-1/2 -translate-y-1/2 left-4 text-mutedForeground" />
-                        <input placeholder="Enter password" name="lastName" className="input-auth pl-12" />
+                        <input
+                            placeholder="Enter password"
+                            name="password"
+                            className="input-auth pl-12"
+                            value={pageValues.password}
+                            required
+                            pattern={VALIDATIONS.password.source}
+                            onChange={handleInputChange}
+                        />
                     </div>
                 </div>
                 <div className="col-span-12">
                     <label className="lable-auth">Confirm password</label>
                     <div className="relative py-2">
                         <Lock className="absolute top-1/2 -translate-y-1/2 left-4 text-mutedForeground" />
-                        <input placeholder="Enter password" name="lastName" className="input-auth pl-12" />
+                        <input
+                            placeholder="Re-enter password"
+                            name="confirmPass"
+                            className="input-auth pl-12"
+                            value={pageValues.confirmPass}
+                            required
+                            pattern={VALIDATIONS.password.source}
+                            onChange={handleInputChange}
+                        />
                     </div>
                 </div>
                 <div className="col-span-6">
                     <label className="lable-auth">Gender</label>
                     <div className="relative py-2">
                         <Users className="absolute top-1/2 -translate-y-1/2 left-4 text-mutedForeground" />
-                        <input placeholder="Shivang" name="firstName" className="input-auth pl-12" />
+                        <select
+                            name="gender"
+                            className="input-auth pl-12"
+                            value={pageValues.gender}
+                            required
+                            onChange={handleInputChange}
+                        >
+                            <option value="">Select</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="others">Others</option>
+                        </select>
                     </div>
                 </div>
                 <div className="col-span-6">
                     <label className="lable-auth">Date of birth</label>
                     <div className="relative py-2">
                         <Calendar className="absolute top-1/2 -translate-y-1/2 left-4 text-mutedForeground" />
-                        <input placeholder="Shivang" name="firstName" className="input-auth pl-12" />
+                        <input
+                            type="date"
+                            placeholder="Shivang"
+                            name="dob"
+                            className="input-auth pl-12"
+                            value={pageValues.dob}
+                            required
+                            onChange={handleInputChange}
+                        />
                     </div>
                 </div>
                 <div className="col-span-6">
-                    <button type="button" className="btn-secondary py-3 rounded-xl w-full font-medium">Back</button>
+                    <button
+                        type="button"
+                        className="btn-secondary py-3 rounded-xl w-full font-medium"
+                        onClick={() => handleContinue(0)}
+                    >
+                        Back
+                    </button>
                 </div>
                 <div className="col-span-6">
-                    <button type="button" className="btn-primary py-3 rounded-xl w-full font-medium">Create Account</button>
+                    <button type="submit" className="btn-primary py-3 rounded-xl w-full font-medium">Create Account</button>
                 </div>
             </div>
         </form>
@@ -134,7 +249,38 @@ const Page1: React.FC = () => {
 
 const SignUp: React.FC = () => {
     const [pageNo, setPageNo] = useState(0);
-    const [formValues, setFormValues] = useState(null);
+    const page0Value = useSelector((state: appState) => state.auth.page0);
+    const page1Value = useSelector((state: appState) => state.auth.page1);
+    const dispatcher = useDispatch<appAction>();
+    const navigate = useNavigate();
+
+    const handlePageChange = (pageNo: number) => {
+        if (pageNo > 1) {
+            dispatcher(setLoader(true));
+            dispatcher(signupThunk({
+                firstName: page0Value.firstName,
+                lastName: page0Value.lastName,
+                userName: page0Value.userName,
+                email: page1Value.email,
+                password: page1Value.password,
+                role: 'user',
+                gender: page1Value.gender,
+                dob: page1Value.dob
+            })).then((res: any) => {
+                setLoader(false);
+                if (res.payload.message === "Account created successfully") {
+                    navigate("/verify-email", {
+                        replace: true
+                    });
+                }
+            }).catch((err) => {
+                console.log(err);
+            })
+            return;
+        }
+        setPageNo(pageNo);
+    }
+
     return (
         <div className="custom-grid template">
             <div className="col-span-0 md:col-span-6 hidden md:block">
@@ -158,10 +304,11 @@ const SignUp: React.FC = () => {
                         </section>
                     </div>
                     <div className="col-span-12">
-                        {pageNo === 0 ? <Page0 /> : <Page1 />}
+                        {pageNo === 0 ? <Page0 handleContinue={handlePageChange} /> : <Page1 handleContinue={handlePageChange} />}
                     </div>
                 </div>
             </div>
+            <FullScreenLoader />
         </div>
     )
 }

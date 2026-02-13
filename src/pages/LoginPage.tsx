@@ -3,9 +3,11 @@ import { AuthLeftSection } from "../components/AuthLeftSection";
 import { Eye, EyeOff, Mail, Lock } from "lucide-react";
 import { useState } from "react";
 import { loginThunk } from "../store/authThunks";
-import {useDispatch} from 'react-redux'
+import { useDispatch } from 'react-redux'
 import type { appAction } from "../store/store";
 import { useNavigate } from "react-router-dom";
+import { FullScreenLoader } from "../components/FullScreenLoader";
+import { setLoader } from "../store/helperSlice";
 
 const LoginPage: React.FC = () => {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -16,10 +18,12 @@ const LoginPage: React.FC = () => {
     const navigate = useNavigate();
 
     const handleLogin = () => {
+        dispatcher(setLoader(true));
         dispatcher(loginThunk({
             email: email,
             password: password
         })).then(() => {
+            dispatcher(setLoader(false))
             navigate("/verify-email")
         }).catch((err) => {
             console.log(err)
@@ -116,6 +120,7 @@ const LoginPage: React.FC = () => {
                     </div>
                 </section>
             </div>
+            <FullScreenLoader />
         </div>
     )
 }
